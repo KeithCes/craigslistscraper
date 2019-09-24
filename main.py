@@ -24,7 +24,7 @@ class Main(tk.Tk):
         tk.Label(text='Keywords (Separate by Commas)').grid(row=3)
 
         # adds button
-        self.button = tk.Button(self, text="Search", command=self.on_button)
+        self.button = tk.Button(self, text="Search", command=self.onButton)
 
         # pushes all non-label items to grid
         self.entryItem.grid(row=0, column=1)
@@ -33,7 +33,7 @@ class Main(tk.Tk):
         self.entryKeywords.grid(row=3, column=1)
         self.button.grid(row=4, column=1)
 
-    def on_button(self):
+    def onButton(self):
 
         # stores data from textboxes in vars
         item = self.entryItem.get().lower()
@@ -136,11 +136,16 @@ def scrape(item, keywords, priceFloor, priceCap):
     offers = offers.find('ul')
     titles = offers.find_all('a', {"class": "result-title hdrlnk"})
     urls = offers.find_all('a', {"class": "result-title hdrlnk"}, href=True)
-    prices = offers.find_all('span', {"class": "result-price"})
+    resultInfo = offers.find_all('p', {"class": "result-info"})
+
+    prices = []
+    for i in resultInfo:
+        i = i.find('span', {"class": "result-price"})
+        prices.append(i)
 
     # logic behind searching
     returnData = ""
-    for p in range(0, len(titles) - 1):
+    for p in range(0, len(prices) - 1):
         if len(keywords) > 0:
             for q in keywords:
                 if q.lower() in titles[p].get_text().lower():
