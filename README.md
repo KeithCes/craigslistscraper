@@ -4,6 +4,7 @@ Scrapes Craigslist and logs a list of all postings that fit the given criteria
 Download release folder to access the main.exe file to run it. Otherwise the python is in the main.py file.=
 
 
+
 Use:
 
   Run main.exe
